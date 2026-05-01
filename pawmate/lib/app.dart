@@ -1,43 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart'; // <-- Import Google Fonts
+import 'package:flutter_riverpod/flutter_riverpod.dart'; // <-- 1. Import Riverpod
+import 'package:google_fonts/google_fonts.dart';
 import 'ui/screens/main_screen.dart';
+import 'providers/theme_provider.dart'; // <-- 2. Import the provider
 
-class PawMateApp extends StatelessWidget {
+// 3. Change to ConsumerWidget
+class PawMateApp extends ConsumerWidget {
   const PawMateApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // 4. Watch the theme provider!
+    final isDarkMode = ref.watch(themeProvider);
+
     return MaterialApp(
       title: 'PawMate',
       debugShowCheckedModeBanner: false,
+      
+      // 5. This tells Flutter to switch based on our true/false value
+      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light, 
+      
+      // --- LIGHT THEME SETTINGS ---
       theme: ThemeData(
-        // 1. The Color Palette
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.teal,
-          primary: Colors.teal,
-          secondary: Colors.orangeAccent,
+          brightness: Brightness.light, 
         ),
-        
-        // 2. The Custom Font (Nunito looks very friendly and modern)
-        textTheme: GoogleFonts.nunitoTextTheme(
-          Theme.of(context).textTheme,
+        textTheme: GoogleFonts.nunitoTextTheme(ThemeData.light().textTheme),
+        useMaterial3: true,
+      ),
+      
+      // --- DARK THEME SETTINGS ---
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.teal,
+          brightness: Brightness.dark, 
         ),
-        
-        // 3. App Bar Styling (Flat and centered)
-        appBarTheme: const AppBarTheme(
-          centerTitle: true,
-          elevation: 0, 
-          backgroundColor: Colors.teal,
-          foregroundColor: Colors.white, // Text color on the AppBar
-        ),
-
-        // 4. Floating Action Button Styling
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          backgroundColor: Colors.orangeAccent,
-          foregroundColor: Colors.white,
-        ),
-        
-        useMaterial3: true, // Uses Flutter's newest modern design system
+        textTheme: GoogleFonts.nunitoTextTheme(ThemeData.dark().textTheme),
+        useMaterial3: true,
       ),
       home: const MainScreen(),
     );
