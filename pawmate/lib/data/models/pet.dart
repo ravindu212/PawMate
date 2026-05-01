@@ -1,29 +1,27 @@
 import 'package:hive/hive.dart';
 
+// This line is crucial! It tells Flutter to look for a generated file.
+// It will show a red error at first—don't panic, we will generate it in Step 2.
 part 'pet.g.dart';
 
 @HiveType(typeId: 0)
 class Pet extends HiveObject {
   @HiveField(0)
-  late String name;
+  String id;
 
   @HiveField(1)
-  late String species;
+  String name;
 
   @HiveField(2)
-  late String breed;
+  String species; // e.g., Dog, Cat, Bird
 
   @HiveField(3)
-  late DateTime dateOfBirth;
+  int? age;
 
-  @HiveField(4)
-  String? profilePhotoPath;
-
-  @HiveField(5)
-  late int genderIndex; // 0=male, 1=female, 2=unknown
-
-  PetGender get gender => PetGender.values[genderIndex];
-  set gender(PetGender g) => genderIndex = g.index;
+  Pet({
+    required this.id,
+    required this.name,
+    required this.species,
+    this.age,
+  });
 }
-
-enum PetGender { male, female, unknown }

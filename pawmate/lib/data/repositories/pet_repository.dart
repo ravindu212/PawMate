@@ -2,21 +2,23 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../models/pet.dart';
 
 class PetRepository {
-  static const _boxName = 'pets';
+  final String _boxName = 'petsBox';
 
-  Future<Box<Pet>> get _box async => Hive.openBox<Pet>(_boxName);
+  // Get the box
+  Box<Pet> get _box => Hive.box<Pet>(_boxName);
 
-  Future<List<Pet>> getAllPets() async {
-    final box = await _box;
-    return box.values.toList();
+  // Read all pets
+  List<Pet> getAllPets() {
+    return _box.values.toList();
   }
 
+  // Add a new pet
   Future<void> addPet(Pet pet) async {
-    final box = await _box;
-    await box.add(pet);
+    await _box.put(pet.id, pet);
   }
 
-  Future<void> deletePet(Pet pet) async {
-    await pet.delete();
+  // Delete a pet
+  Future<void> deletePet(String id) async {
+    await _box.delete(id);
   }
 }
