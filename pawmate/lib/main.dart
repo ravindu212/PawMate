@@ -3,7 +3,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app.dart';
 import 'data/models/pet.dart'; 
-import 'data/models/reminder.dart'; // <-- 1. Added the reminder model import
+import 'data/models/reminder.dart'; 
+import 'data/models/health_record.dart';
+import 'data/models/weight_record.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,9 +16,15 @@ void main() async {
   await Hive.openBox<Pet>('petsBox'); 
   
   // Reminder Database 
-  Hive.registerAdapter(ReminderAdapter()); // <-- 2. Register the Reminder adapter
-  await Hive.openBox<Reminder>('remindersBox'); // <-- 3. Open the reminders box
+  Hive.registerAdapter(ReminderAdapter());
+  await Hive.openBox<Reminder>('remindersBox'); 
   
-  // Wrap PawMateApp in ProviderScope!
+  // Health Record Database (Add these two lines!)
+  Hive.registerAdapter(HealthRecordAdapter());
+  await Hive.openBox<HealthRecord>('healthRecordsBox'); 
+
+  Hive.registerAdapter(WeightRecordAdapter());
+  await Hive.openBox<WeightRecord>('weightBox');
+  
   runApp(const ProviderScope(child: PawMateApp())); 
 }

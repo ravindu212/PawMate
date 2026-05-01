@@ -13,7 +13,7 @@ class PetRepository {
   }
 
   // Add a new pet
-  Future<void> addPet(Pet pet) async {
+Future<void> savePet(Pet pet) async {
     await _box.put(pet.id, pet);
   }
 

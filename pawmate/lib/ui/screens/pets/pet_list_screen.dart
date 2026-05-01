@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../providers/pet_provider.dart';
 import 'add_pet_screen.dart';
+import 'health_records_screen.dart';
 
 // 1. Change StatelessWidget to ConsumerWidget
 class PetListScreen extends ConsumerWidget {
@@ -34,6 +35,15 @@ class PetListScreen extends ConsumerWidget {
                   ),
                   title: Text(pet.name),
                   subtitle: Text('${pet.species} • Age: ${pet.age ?? '?'}'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        // Pass the clicked pet directly into the new screen!
+                        builder: (context) => HealthRecordsScreen(pet: pet),
+                      ),
+                    );
+                  },
                   trailing: IconButton(
                     icon: const Icon(Icons.delete, color: Colors.red),
                     onPressed: () {
@@ -46,7 +56,6 @@ class PetListScreen extends ConsumerWidget {
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // This tells Flutter to push the new screen on top of the current one
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const AddPetScreen()),

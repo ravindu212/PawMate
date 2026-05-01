@@ -27,7 +27,7 @@ dependencies:
   printing: ^5.13.1
 
   # Charts (weight tracker)
-  fl_chart: ^0.68.0
+  fl_chart: ^1.2.0
 
   # Utilities
   uuid: ^4.4.0
