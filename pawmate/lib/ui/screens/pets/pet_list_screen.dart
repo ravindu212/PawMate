@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../providers/pet_provider.dart';
+import '../../../data/repositories/pet_repository.dart';
 import 'add_pet_screen.dart';
 
 class PetListScreen extends ConsumerWidget {
@@ -30,8 +31,10 @@ class PetListScreen extends ConsumerWidget {
                 children: [
                   Icon(Icons.pets, size: 64, color: Colors.grey),
                   SizedBox(height: 16),
-                  Text('No pets yet — tap + to add one!',
-                      style: TextStyle(color: Colors.grey)),
+                  Text(
+                    'No pets yet — tap + to add one!',
+                    style: TextStyle(color: Colors.grey),
+                  ),
                 ],
               ),
             );
@@ -39,13 +42,17 @@ class PetListScreen extends ConsumerWidget {
           return ListView.builder(
             padding: const EdgeInsets.all(16),
             itemCount: pets.length,
-            itemBuilder: (context, index) {
+            itemBuilder: (_, index) {
               final pet = pets[index];
               return Card(
                 margin: const EdgeInsets.only(bottom: 12),
                 child: ListTile(
                   leading: CircleAvatar(
-                    child: Text(pet.name[0].toUpperCase()),
+                    backgroundColor: Colors.teal.shade100,
+                    child: const Icon(
+                      Icons.pets,
+                      color: Colors.teal,
+                    ),
                   ),
                   title: Text(pet.name),
                   subtitle: Text('${pet.species} • ${pet.breed}'),
