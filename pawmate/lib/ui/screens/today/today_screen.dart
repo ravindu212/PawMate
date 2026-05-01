@@ -4,7 +4,7 @@ import '../../../providers/reminder_provider.dart';
 
 
 class TodayScreen extends ConsumerWidget {
-  const TodayScreen({Key? key}) : super(key: key);
+  const TodayScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

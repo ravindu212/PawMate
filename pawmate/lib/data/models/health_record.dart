@@ -1,30 +1,37 @@
 import 'package:hive/hive.dart';
 
-// This tells Hive to generate our adapter
 part 'health_record.g.dart';
 
-@HiveType(typeId: 2) 
+@HiveType(typeId: 2)
 class HealthRecord extends HiveObject {
   @HiveField(0)
   String id;
 
   @HiveField(1)
-  String petId; // <-- This is the secret link to the Pet!
+  String petId;
 
   @HiveField(2)
-  String title; // e.g., "Rabies Vaccine", "Annual Checkup"
+  DateTime date;
 
   @HiveField(3)
-  DateTime date; // When it happened
+  String title; // e.g., "Rabies" or "Annual Checkup"
 
   @HiveField(4)
-  String notes; // Any extra details from the vet
+  String category; // 'Vaccination', 'Checkup', 'Medication', 'Surgery'
+
+  @HiveField(5)
+  String? notes;
+
+  @HiveField(6)
+  DateTime? nextDueDate; // For future reminders!
 
   HealthRecord({
     required this.id,
     required this.petId,
-    required this.title,
     required this.date,
-    this.notes = '',
+    required this.title,
+    required this.category,
+    this.notes,
+    this.nextDueDate,
   });
 }

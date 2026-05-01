@@ -4,7 +4,7 @@ import '../../../providers/theme_provider.dart'; // <-- 2. Import our new provid
 
 // 3. Change StatelessWidget to ConsumerWidget
 class SettingsScreen extends ConsumerWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

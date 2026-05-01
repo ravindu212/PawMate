@@ -4,7 +4,7 @@ import 'package:intl/intl.dart'; // Needed to format the date nicely
 import '../../../providers/pet_provider.dart';
 
 class AddPetScreen extends ConsumerStatefulWidget {
-  const AddPetScreen({Key? key}) : super(key: key);
+  const AddPetScreen({super.key});
 
   @override
   ConsumerState<AddPetScreen> createState() => _AddPetScreenState();
@@ -184,7 +184,7 @@ class _AddPetScreenState extends ConsumerState<AddPetScreen> {
                           prefixIcon: const Icon(Icons.pets, color: Colors.teal),
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                         ),
-                        value: _selectedSpecies,
+                        initialValue: _selectedSpecies,
                         items: _speciesList.map((species) {
                           return DropdownMenuItem(value: species, child: Text(species));
                         }).toList(),

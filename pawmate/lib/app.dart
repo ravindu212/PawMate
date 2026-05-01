@@ -6,7 +6,7 @@ import 'providers/theme_provider.dart'; // <-- 2. Import the provider
 
 // 3. Change to ConsumerWidget
 class PawMateApp extends ConsumerWidget {
-  const PawMateApp({Key? key}) : super(key: key);
+  const PawMateApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

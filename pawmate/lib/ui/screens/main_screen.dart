@@ -4,7 +4,7 @@ import 'pets/pet_list_screen.dart';
 import 'settings/settings_screen.dart'; // <-- 1. Import the new screen
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();

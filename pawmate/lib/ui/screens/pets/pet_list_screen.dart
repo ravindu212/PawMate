@@ -2,59 +2,57 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../providers/pet_provider.dart';
 import 'add_pet_screen.dart';
-import 'health_records_screen.dart';
+import 'pet_details_screen.dart'; // <-- 1. Import the details screen!
 
-// 1. Change StatelessWidget to ConsumerWidget
 class PetListScreen extends ConsumerWidget {
   const PetListScreen({Key? key}) : super(key: key);
 
-  // 2. Add 'WidgetRef ref' to the build method
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 3. Watch the provider! This single line grabs the list of pets.
-    // If a pet is added or deleted, Riverpod automatically redraws this screen.
     final pets = ref.watch(petProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('My PawMates')),
+      appBar: AppBar(
+        title: const Text('My PawMates'),
+      ),
       body: pets.isEmpty
-          ? const Center(
-              child: Text(
-                'No pets yet. Tap + to add one!',
-                style: TextStyle(fontSize: 16),
-              ),
-            )
+          ? const Center(child: Text('No pets added yet!'))
           : ListView.builder(
               itemCount: pets.length,
               itemBuilder: (context, index) {
-                final pet = pets[index]; // Get the current pet
-
-                return ListTile(
-                  leading: const CircleAvatar(
-                    child: Icon(Icons.pets), // A temporary placeholder icon
-                  ),
-                  title: Text(pet.name),
-                  subtitle: Text('${pet.species} • Age: ${pet.age ?? '?'}'),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        // Pass the clicked pet directly into the new screen!
-                        builder: (context) => HealthRecordsScreen(pet: pet),
+                final pet = pets[index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.teal.shade100,
+                      child: Icon(
+                        pet.species == 'Dog' ? Icons.pets : 
+                        pet.species == 'Cat' ? Icons.cruelty_free : Icons.eco, 
+                        color: Colors.teal,
                       ),
-                    );
-                  },
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete, color: Colors.red),
-                    onPressed: () {
-                      // 4. Use ref.read to perform an ACTION (like deleting)
-                      ref.read(petProvider.notifier).deletePet(pet.id);
+                    ),
+                    title: Text(pet.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text(pet.species),
+                    trailing: const Icon(Icons.chevron_right),
+                    
+                    // --- THE DOORWAY TO THE PROFILE AND WEIGHT TRACKER ---
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PetDetailsScreen(pet: pet),
+                        ),
+                      );
                     },
+                    
                   ),
                 );
               },
             ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.teal,
+        foregroundColor: Colors.white,
         onPressed: () {
           Navigator.push(
             context,
