@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'data/models/pet.dart';
 import 'app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(
-    const ProviderScope(
-      child: PawMateApp(),
-    ),
-  );
+  await Hive.initFlutter();
+  Hive.registerAdapter(PetAdapter());
+  runApp(const ProviderScope(child: PawMateApp()));
 }
