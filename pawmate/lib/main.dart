@@ -6,6 +6,7 @@ import 'data/models/pet.dart';
 import 'data/models/reminder.dart'; 
 import 'data/models/health_record.dart';
 import 'data/models/weight_record.dart';
+import 'data/models/routine.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,9 @@ void main() async {
 
   Hive.registerAdapter(WeightRecordAdapter());
   await Hive.openBox<WeightRecord>('weightBox');
+
+  Hive.registerAdapter(RoutineAdapter()); // You will see a red line here, ignore it for a moment!
+  await Hive.openBox<Routine>('routineBox');
   
   runApp(const ProviderScope(child: PawMateApp())); 
 }

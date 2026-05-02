@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../data/models/pet.dart';
 import 'weight_tracker_screen.dart';
 import 'health_records_screen.dart';
+import 'routine_screen.dart';
 
 class PetDetailsScreen extends StatelessWidget {
   final Pet pet;
@@ -121,6 +122,22 @@ class PetDetailsScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => HealthRecordsScreen(pet: pet),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: 12),
+            _buildActionCard(
+              context,
+              title: 'Daily Routine',
+              subtitle: 'Feeding, walks, and medications',
+              icon: Icons.schedule,
+              color: Colors.amber.shade700,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RoutineScreen(pet: pet),
                   ),
                 );
               },
